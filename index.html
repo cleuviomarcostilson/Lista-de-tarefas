@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do-List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        main {
+            min-width: 300px;
+            margin-top: 30px;
+            width: 450px;
+            background-color: bisque;
+            box-shadow: 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.469);
+            border-top: 1.5 solid rgba(0, 0, 0, 0.469);
+            border-left: 1.5 solid rgba(0, 0, 0, 0.469);
+            padding: 20px;
+            margin: auto;
+        }
+
+        #lista {
+            margin-top: 5px;
+            min-width: 160px;
+
+        }
+
+        input {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Minha Lista de tarefas</h1>
+
+        <div id="add">
+            <input type="text" name="nome" id="nome" placeholder="Ex: Estudar"> <input type="button" value="Adicionar"
+                onclick="add()"> <input type="button" value="Eliminar" onclick="eliminar()">
+        </div>
+
+        <select id="lista" size="10">
+
+        </select>
+    </main>
+</body>
+<script>
+    let tarefas = []
+    let nome = window.document.getElementById('nome')
+    let lista = window.document.getElementById('lista')
+    lista.innerText = ''
+
+    function isnome(n) {
+        if (n.value.length == 0) {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    function tanalista(n, l) {
+        if (l.indexOf(n.value) != -1) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    function add() {
+        // document.body.style.background = 'red'
+        if (isnome(nome) && !tanalista(nome, tarefas)) {
+            tarefas.push(nome.value)
+            let item = window.document.createElement('option')
+            lista.appendChild(item)
+            item.innerHTML = `<h1>${nome.value}</h1>`
+        }
+        else {
+            alert('[ERRO] Valor invalido ou já existente!')
+            nome.focus()
+        }
+        nome.value = ''
+        nome.focus()
+    }
+
+    function eliminar(){
+        // alert(lista.selectedIndex)
+        // tarefas.splice(1,2)
+        // alert(tarefas)
+        let posicao = lista.selectedIndex
+        tarefas.splice(posicao)
+        lista.remove(posicao)
+        
+
+        if(posicao == -1){
+            alert('[ERRO] Selecione uma tarefa')
+            return
+        }
+    }
+    
+</script>
+
+</html>
